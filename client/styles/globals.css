@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .blink:after {
+    content: "|";
+    @apply text-green-300;
+    animation: blink 1s step-start infinite;
+  }
+  .blink:focus {
+    outline: none;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+}
+
+html,
+body {
+  font-family: "Share Tech Mono", monospace;
+  @apply text-green-400;
+}
