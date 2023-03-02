@@ -26,9 +26,7 @@ const Chat = () => {
     setRoom(router.query.room);
     setName(router.query.name);
     socket = io(ENDPOINT!);
-
     socket.emit("join", { name: router.query.name, room: router.query.room });
-    setIsLoading(false);
     return () => {
       socket.disconnect();
     };
@@ -43,6 +41,8 @@ const Chat = () => {
   useEffect(() => {
     if (socket)
       socket.on("message", (message: any) => {
+        setIsLoading(false);
+
         setMessages([...messages, message]);
       });
   }, [socket, messages]);
