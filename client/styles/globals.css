@@ -8,6 +8,7 @@
     @apply text-green-300;
     animation: blink 1s step-start infinite;
   }
+
   .blink:focus {
     outline: none;
   }
@@ -22,5 +23,9 @@
 html,
 body {
   font-family: "Share Tech Mono", monospace;
+  @apply text-green-400;
+}
+
+input::placeholder {
   @apply text-green-400;
 }
