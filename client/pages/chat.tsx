@@ -14,6 +14,7 @@ const Chat = () => {
     router.query.name
   );
   const [room, setRoom] = useState<string | string[] | undefined>("");
+  const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
 
@@ -27,6 +28,7 @@ const Chat = () => {
     socket = io(ENDPOINT!);
 
     socket.emit("join", { name: router.query.name, room: router.query.room });
+    setIsLoading(false);
     return () => {
       socket.disconnect();
     };
@@ -56,14 +58,16 @@ const Chat = () => {
       <h1 className={" my-4 mx-4 text-3xl"}>{"Room " + room}</h1>
       <div className="flex flex-col mx-4">
         {messages.map((item) => (
-          <div className="flex flex-row">
+          <div className="flex flex-row ">
             <p>{"$" + item.user + ": "}</p>
             <p>{item.text}</p>
           </div>
         ))}
         <div>
+          {isLoading && <p>Loading...</p>}
           <input
             type="text"
+            disabled={isLoading}
             className="bg-black blink text-green-400 w-full"
             ref={inputRef}
             placeholder={"Type your message here"}
