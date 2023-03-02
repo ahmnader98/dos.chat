@@ -65,20 +65,22 @@ const Chat = () => {
         ))}
         <div>
           {isLoading && <p>Loading...</p>}
-          <input
-            type="text"
-            disabled={isLoading}
-            className="bg-black blink text-green-400 w-full"
-            ref={inputRef}
-            placeholder={"Type your message here"}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                sendMessage(e);
-              }
-            }}
-          />
+          {!isLoading && (
+            <input
+              type="text"
+              disabled={isLoading}
+              className="bg-black blink text-green-400 w-full"
+              ref={inputRef}
+              placeholder={"Type your message here"}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  sendMessage(e);
+                }
+              }}
+            />
+          )}
         </div>
       </div>
     </div>
