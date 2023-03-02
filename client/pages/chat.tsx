@@ -39,12 +39,13 @@ const Chat = () => {
     if (inputRef.current) inputRef.current.scrollIntoView();
   }, [messages]);
   useEffect(() => {
-    if (socket)
+    if (socket) {
       socket.on("message", (message: any) => {
+        console.log("connected");
         setIsLoading(false);
-
         setMessages([...messages, message]);
       });
+    }
   }, [socket, messages]);
 
   const sendMessage = (e: SyntheticEvent) => {
