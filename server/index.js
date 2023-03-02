@@ -15,7 +15,9 @@ const app = express();
 app.use(cors());
 
 const server = http.createServer(app);
-const io = socketIO(server, { cors: { origin: "http://localhost:3000" } });
+const io = socketIO(server, {
+  cors: { origin: "https://dos-chat.vercel.app/" },
+});
 
 io.on("connection", (socket) => {
   socket.on("join", ({ name, room }, callback) => {
