@@ -16,7 +16,7 @@ app.use(cors());
 
 const server = http.createServer(app);
 const io = socketIO(server, {
-  cors: { origin: "https://dos-chat.vercel.app/" },
+  cors: { origin: process.env.FRONTEND_URL },
 });
 
 io.on("connection", (socket) => {
