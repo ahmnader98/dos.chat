@@ -24,7 +24,7 @@ io.on("connection", (socket) => {
     const { error, user } = addUser({ id: socket.id, name, room });
 
     if (!name) return;
-
+    if (!user) return;
     socket.emit("message", {
       user: "admin",
       text: `${user.name} joined room ${user.room}`,
@@ -44,11 +44,13 @@ io.on("connection", (socket) => {
   });
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);
-    if (user[0]) {
-      io.to(user[0].room).emit("message", {
-        user: "admin",
-        text: `${user[0].name} left.`,
-      });
+    if (user) {
+      if (user[0]) {
+        io.to(user[0].room).emit("message", {
+          user: "admin",
+          text: `${user[0].name} left.`,
+        });
+      }
     }
   });
 });
