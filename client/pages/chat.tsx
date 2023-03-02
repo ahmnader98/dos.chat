@@ -17,16 +17,15 @@ const Chat = () => {
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
 
-  const ENDPOINT = process.env.NEXT_PUBLIC_ENDPOINT || "localhost:9999";
+  const ENDPOINT = process.env.NEXT_PUBLIC_ENDPOINT;
 
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (!router.isReady) return;
     setRoom(router.query.room);
     setName(router.query.name);
-    socket = io(ENDPOINT);
+    socket = io(ENDPOINT!);
 
-    console.log(router.query.name, router.query.room);
     socket.emit("join", { name: router.query.name, room: router.query.room });
     return () => {
       socket.disconnect();
