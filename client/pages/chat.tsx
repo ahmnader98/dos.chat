@@ -60,7 +60,7 @@ const Chat = () => {
         {messages.map((item) => (
           <div className="flex flex-row ">
             <p>{"$" + item.user + ": "}</p>
-            <p>{item.text}</p>
+            <p>{" " + item.text}</p>
           </div>
         ))}
         <div>
