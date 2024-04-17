@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "ts-node server.ts",
-    "build": "next build",
-    "start": "next start",
+    "build": "tsc && next build",
+    "start": "NODE_ENV=production ts-node server.ts",
     "lint": "next lint"
   },
   "dependencies": {

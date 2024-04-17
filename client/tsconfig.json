@@ -20,8 +20,9 @@
     }
   },
   "ts-node": {
+    "transpileOnly": true,
     "compilerOptions": {
-      "module": "CommonJS"
+      "module": "commonjs"
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
