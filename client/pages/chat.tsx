@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import React from "react";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 let socket: any;
