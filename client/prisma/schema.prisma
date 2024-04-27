@@ -9,7 +9,46 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+// Users table
+model User {
+  id                   Int            @id @default(autoincrement())
+  username             String         @unique
+  email                String         @unique
+  conversations        Conversation[] @relation("UserConversations")
+  sentChatRequests     ChatRequest[]  @relation("SenderRequest")
+  receivedChatRequests ChatRequest[]  @relation("ReceiverRequest")
+  Message              Message[]
+}
+
+// Conversations table
+model Conversation {
+  id       Int       @id @default(autoincrement())
+  users    User[]    @relation("UserConversations")
+  messages Message[]
+}
+
+// Messages table
+model Message {
+  id             Int          @id @default(autoincrement())
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversationId Int
+  sender         User         @relation(fields: [senderId], references: [id])
+  senderId       Int
+  messageContent String
+  timestamp      DateTime     @default(now())
+}
+
+// Chat requests table
+model ChatRequest {
+  id         Int      @id @default(autoincrement())
+  senderId   Int
+  receiverId Int
+  sender     User     @relation(fields: [senderId], references: [id], name: "SenderRequest")
+  receiver   User     @relation(fields: [receiverId], references: [id], name: "ReceiverRequest")
+  status     String
+  timestamp  DateTime @default(now())
+}
