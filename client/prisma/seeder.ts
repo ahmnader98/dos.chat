@@ -9,6 +9,7 @@ async function seed() {
       data: {
         username: "user1",
         email: "user1@example.com",
+        id: "user1",
       },
     });
 
@@ -16,6 +17,7 @@ async function seed() {
       data: {
         username: "user2",
         email: "user2@example.com",
+        id: "user2",
       },
     });
 

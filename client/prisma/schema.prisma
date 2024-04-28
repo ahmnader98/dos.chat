@@ -15,7 +15,7 @@ datasource db {
 
 // Users table
 model User {
-  id                   Int            @id @default(autoincrement())
+  id                   String @id @unique           
   username             String         @unique
   email                String         @unique
   conversations        Conversation[] @relation("UserConversations")
@@ -37,7 +37,7 @@ model Message {
   conversation   Conversation @relation(fields: [conversationId], references: [id])
   conversationId Int
   sender         User         @relation(fields: [senderId], references: [id])
-  senderId       Int
+  senderId       String
   messageContent String
   timestamp      DateTime     @default(now())
 }
@@ -45,8 +45,8 @@ model Message {
 // Chat requests table
 model ChatRequest {
   id         Int      @id @default(autoincrement())
-  senderId   Int
-  receiverId Int
+  senderId   String
+  receiverId String
   sender     User     @relation(fields: [senderId], references: [id], name: "SenderRequest")
   receiver   User     @relation(fields: [receiverId], references: [id], name: "ReceiverRequest")
   status     String

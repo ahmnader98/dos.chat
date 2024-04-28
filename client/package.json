@@ -6,7 +6,8 @@
     "dev": "ts-node server.ts",
     "build": "tsc && next build",
     "start": "NODE_ENV=production ts-node server.ts",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed": "ts-node ./prisma/seeder.ts"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",
