@@ -59,6 +59,34 @@ export default async function handler(
       console.error("Error deleting conversation:", error);
       res.status(500).json({ message: "Internal Server Error" });
     }
+  } else if (req.method === "GET") {
+    const conversation = await prisma.conversation.findFirst({
+      where: {
+        AND: [
+          {
+            users: {
+              some: {
+                username: String(username),
+              },
+            },
+          },
+          {
+            users: {
+              some: {
+                id: session.user.sub,
+              },
+            },
+          },
+        ],
+      },
+      include: {
+        messages: true,
+      },
+    });
+    if (!conversation) {
+      return res.status(404).json({ message: "Conversation not found" });
+    }
+    res.status(200).json(conversation);
   } else {
     res.status(405).json({ message: "Method Not Allowed" });
   }
